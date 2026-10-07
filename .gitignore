@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.vercel/
+.env*
+work/
+# Local specification contains machine-specific paths.
+data/specification.txt
+*.log
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+.npmrc
+.netrc
