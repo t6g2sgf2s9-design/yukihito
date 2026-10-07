@@ -2,6 +2,7 @@ import type { EventData } from '../../types';
 import { crowdingFallback } from '../../config/crowding';
 import { comments } from '../../config/comments';
 import { specialEventComments } from '../../config/specialEvents';
+import { specialEventOverrides } from '../../config/specialEventOverrides';
 
 export type CrowdingLevel = 'crowded' | 'sparse';
 export interface DataCrowdingDecision { level: CrowdingLevel; evidence: string[] }
@@ -19,6 +20,8 @@ export interface CrowdingClassification {
 export const classifyFromData: DataCrowdingClassifier = () => undefined;
 
 export function classifyCrowding(event: EventData, dataClassifier: DataCrowdingClassifier = classifyFromData): CrowdingClassification {
+ const override=specialEventOverrides[event.eventId];
+ if(override)return {level:'unclassified',classificationSource:'special',messages:[...override.commentLines],evidence:[`specialEventOverride:${event.eventId}`]};
  const special=specialEventComments[event.eventId];
  if (special) {
   return { level: special.level??'unclassified', classificationSource: 'special', messages: [...special.lines], evidence: [`specialEventId:${event.eventId}`] };

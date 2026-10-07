@@ -191,3 +191,14 @@ MyGO!!!!! bandId 45、戸山香澄 characterId 1、湊友希那 characterId 21�
 今回の画像添付はないため現在のcharacter.pngを維持。SHA-256は変更なし。実RASイベント280で6問→予想→結果を確認し、ガチャはロック・マスキング・チュチュ、報酬はパレオ・レイヤと表示。320px / 390px / 1280px幅で横スクロールなし、質問の固定「わからない」は引き続きアクセス可能です。実機Safariは未確認です。
 
 
+
+## アインザッツ専用3位表示
+
+新たな旅立ちのアインザッツはeventId 132。src/config/specialEventOverrides.tsの設定を最優先し、コメントを「このイベントは私、ゆきんこが3位を取ったイベントです🤭」の1行、主表示を「🥉 3位」にします。従来の超過密2行コメントはこのイベントだけ表示しません。イベント名→共通画像→専用コメント→3位ポイント→詳細の順です。
+
+最終3位は40,000,000 pt。保存済みrawと現行Bestdori https://bestdori.com/api/eventtop/data?server=0&event=132&mid=0&latest=1 の一致を確認。終了後の同一観測時刻の上位10件を検証し、降順3番目から取得。build-dataはdata/generated/events.jsonのfinalRankPoints[3]へ記録します。既存top10FinalPointsの25,000,219 ptは保持し、他342イベントは従来通り10位表示。
+
+取得できない場合は3位の「未取得」を表示し、10位ポイントで代用しません。検証済みの手動値が必要な場合だけ、専用設定へmanualFinalRankPoints: { points, observedAt, source }を入力できます。sourceには根拠のURL、observedAtには確認記録の時刻（ミリ秒）を指定し、推測値を登録しないでください。設定変更後はbuild-dataとbuildを実行します。
+
+全99テスト成功。既存90件を維持し、132のコメント期待値のみ今回の仕様へ変更。追加9件で空コメント枠の抑止、実3位、優先順位、表示順、他342件の10位維持、欠損時非捏造、形式検証、manual override、ID判定を確認。TypeScriptチェック・本番ビルド成功。スマホ390px・PC1280pxで横スクロールなしを確認済み。
+

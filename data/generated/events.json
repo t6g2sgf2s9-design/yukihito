@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T11:28:08.332Z",
+  "generatedAt": "2026-10-07T14:21:40.929Z",
   "server": "日本版",
   "events": [
     {
@@ -11060,6 +11060,13 @@
       "stampCharacters": [],
       "star5Era": false,
       "seasonTags": [],
+      "finalRankPoints": {
+        "3": {
+          "points": 40000000,
+          "observedAt": 1605851991937,
+          "source": "https://bestdori.com/api/eventtop/data?server=0&event=132&mid=0&latest=1"
+        }
+      },
       "top10FinalPoints": {
         "points": 25000219,
         "observedAt": 1605851991937,

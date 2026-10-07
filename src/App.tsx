@@ -8,6 +8,7 @@ import { Character } from './components/Character';
 import { Result, dateText } from './components/Result';
 import { useQuestionPrompt } from './lib/ui/useQuestionPrompt';
 import { displayOption,matchesOptionSearch } from './lib/ui/characterDisplayName';
+import { specialEventOverrides } from './config/specialEventOverrides';
 const events=dataset.events as EventData[];
 type Screen='start'|'question'|'guess'|'result'|'browse'|'empty';
 export default function App() {
@@ -52,7 +53,7 @@ export default function App() {
  const options=question?.options.filter(o=>matchesOptionSearch(question.field,o,filter))??[];
  const matches=ranked.filter(c=>!filter||c.event.eventName.normalize('NFKC').toLowerCase().includes(filter.normalize('NFKC').toLowerCase()));
  return <div className="app"><header><a className="wordmark" href="/">バンドリ！<b>ゆきネーター！<span>❄️</span></b></a><span className="header-tag">きおくで当てる</span></header>
- <main><Character message={message} variant={screen==='start'?'start':screen==='result'?'result':screen==='guess'?'guess':'question'}/>
+ <main>{!(screen==='result'&&chosen&&specialEventOverrides[chosen.eventId]?.resultRank===3)&&<Character message={message} variant={screen==='start'?'start':screen==='result'?'result':screen==='guess'?'guess':'question'}/>}
  {screen==='start'?<section className="welcome"><p className="eyebrow">あのイベント、なんだっけ？</p><h1>キミの思い出、<br/>当てちゃうヨ<span>🤭</span></h1><p className="intro">バンドも、時期も、うろ覚えでOK。<br/>ゆきネーターと、記憶をたどろう。</p><button className="primary start" onClick={()=>setScreen('question')}>思い出してみる <span>→</span></button><p className="hint">登録不要・日本版の過去イベント {events.length}件</p></section>:
  screen==='result'&&chosen?<Result event={chosen} onReject={reject} onReset={reset}/>:
  screen==='guess'&&chosen?<section className="guess"><p className="eyebrow">ゆきネーターの予想</p><h2 ref={titleRef} tabIndex={-1}>{comments.found(chosen.eventName)}</h2><p className="period">{dateText(chosen.startAt)} 開催</p><div className="guess-tags"><span>{chosen.bannerBandName??'バンド未確認'}</span><span>{label[chosen.eventAttribute??'']??'属性未取得'}</span></div><button className="primary" onClick={()=>setScreen('result')}>これだ！ 🎉</button><button className="secondary" onClick={reject}>これじゃない</button><p className="hint">一致度からの予想です。外れても続けられるヨ。</p></section>:
@@ -65,6 +66,7 @@ export default function App() {
  <section className="browse"><p className="eyebrow">記憶のかけらを探そう</p><h2 ref={titleRef} tabIndex={-1}>この中にあるかな？</h2><p className="intro">何度か予想したけど、見つからないネ。<br/>最後にタイトルで探してみよう。</p><input type="search" placeholder="イベント名の一部でさがす…" aria-label="イベント名を検索" value={filter} onChange={e=>setFilter(e.target.value)}/><div className="candidate-list">{matches.slice(0,filter?40:8).map(c=><button key={c.event.eventId} onClick={()=>guess(c.event)}><small>{c.event.year}年・{label[c.event.eventAttribute??'']??'属性未取得'}</small><span>{c.event.eventName}</span><b aria-hidden="true">↗</b></button>)}</div>{!matches.length&&<p>該当なし。短いタイトルの一部で試してみて。</p>}{answers.length>0&&<button className="secondary" onClick={()=>{const previous=answers.slice(0,-1);setAnswers(previous);advance(previous,excluded);setFilter('');setMissed(false);}}>回答をひとつ戻す</button>}<button className="secondary" onClick={reset}>最初からあそぶ</button></section>}
  </main><footer><span>思い出は、ちょっと曖昧なくらいで。</span><details><summary>このアプリについて</summary><p>ファンによる非公式アプリです。データ提供：<a href="https://bestdori.com" target="_blank" rel="noreferrer">Bestdori</a>。検索用データ更新：{new Date(dataset.generatedAt).toLocaleDateString('ja-JP',{timeZone:'Asia/Tokyo'})}。終了済み日本版イベントのみ。欠損情報は未確認・未取得と表示します。</p><p>T1〜T10の推定稼働分析は未実装です。</p></details></footer></div>;
 }
+
 
 
 

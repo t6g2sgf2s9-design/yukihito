@@ -10,7 +10,7 @@ export interface EventData {
   gachas: Gacha[]; gachaBasis?: string; eventSongs: string[]; eventSongBands?: string[]; stampCharacters: Person[];
   memoryTags?: Record<string, string[]>;
   star5Era?: boolean; seasonTags: string[]; collaborationTag?: string; limited?: string;
-  top10FinalPoints?: Border; sources: string[]; notes: string[];
+  top10FinalPoints?: Border; finalRankPoints?: Record<number,Border>; sources: string[]; notes: string[];
 }
 export type Field = 'bannerBandName' | 'eventScope' | 'year' | 'half' | 'bannerCharacter' | 'eventAttribute' | 'eventFormat' | 'gachaCharacters' | 'star5Characters' | 'bonusCharacters' | 'rewardCharacters' | 'eventSongs' | 'eventSongBands' | 'stampCharacters' | 'star5Era' | 'seasonTags' | 'collaborationTag' | 'limited' | 'teamAttribute' | 'teamBand' | 'teamCharacter' | 'gachaAttributes' | 'rewardAttributes' | `tag:${string}`;
 export interface Answer { field: Field; value: string | null; confidence: 'certain' | 'approximate' }

@@ -17,3 +17,4 @@
 .character-scene .sparkle-two{right:4%;top:10px}
 @media(min-width:600px){.yukinator-portrait{max-width:330px;max-height:210px}.portrait-start{max-width:350px;max-height:240px}.portrait-guess{max-width:340px;max-height:225px}.portrait-result{max-width:320px;max-height:200px}}
 @media(max-height:700px){.yukinator-portrait{max-height:155px}.portrait-start{max-height:180px}}
+.result-rank-portrait{display:flex;justify-content:center;margin:18px 0}

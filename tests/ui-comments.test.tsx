@@ -13,7 +13,7 @@ const original=['このイベントの上位は超過密🤭','激しい順位�
 const cases:[number,string,string[]][]=[
  [298,'Baby steps!',original],[280,"Rockin' Our Trip!",original],
  [171,'「そんな人じゃないんです！」',original],[170,'聖夜に集うSnow Rose',original],
- [132,'新たな旅立ちのアインザッツ',original],[342,'未来想送曲',original],
+ [132,'新たな旅立ちのアインザッツ',['このイベントは私、ゆきんこが3位を取ったイベントです🤭']],[342,'未来想送曲',original],
  [293,'Secret 1Day Andante',['1位と友達なんだよね🤭']],
  [318,'あなたを照らすオーバード',['1位と友達なんだよね🤭']],
  [275,'探検！体験！ワクワクアクアリウム！',['りんちゃんは孤独に弱いね🤭']],
@@ -64,3 +64,4 @@ describe('11イベントの専用コメントと実ID',()=>{
   const visible=html.replace(/<[^>]*>/g,'');expect(visible).toContain(comments.sparse);expect(visible).not.toContain(comments.unknown);expect(visible).not.toMatch(/目安だヨ|お決まりコメント|fallback|classificationSource/);
  });
 });
+
